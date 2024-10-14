@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oscarapp-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: oscarapp
+  template:
+    metadata:
+      labels:
+        app: oscarapp
+    spec:
+      containers:
+      - name: oscar-container
+        image: oscar-img
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080

@@ -1,0 +1,18 @@
+name: publish
+on: [push]
+jobs:
+    publish-oscarapp-docker-image:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Login to GitHub Container Registry
+            uses: docker/login-action@v1
+            with:
+                registry: ghcr.io
+                username: ${{ github.actor}}
+                password: ${{ secrets.GITHUB_TOKEN}}
+            - name: Build the image
+            run: |
+            docker build . --tag ghcr.io/grevjensen/oscarapp:latest
+            docker run ghcr.io/grevjensen/oscarapp:latest
+            doocker push ghcr.io/grevjensen/oscarapp:latest
